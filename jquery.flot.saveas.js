@@ -4,7 +4,7 @@
     var options = {
     };
 
-    function callContextMenu(e) {
+    function callContextMenu(plot, e) {
         var ctxMenu = $('<div id="contextMenu"/>').html('<table  border="0" cellpadding="0" cellspacing="0" style="border: thin solid #808080; cursor: default;" width="100px"><tr><td><div  class="ContextItem">Save image...</div></td></tr></table>');
         var posx = e.clientX +window.pageXOffset +'px'; // Left Position of Mouse Pointer
         var posy = e.clientY + window.pageYOffset + 'px'; // Top Position of Mouse
@@ -16,7 +16,7 @@
         $('body').append(ctxMenu);
         $(ctxMenu)
             .click(function(){
-                savePNG();
+                savePNG(plot);
                 closeContextMenu();
             })
             .children('.ContextItem')
@@ -34,15 +34,17 @@
         }
     }
 
-    function savePNG() {
-        var dataString = surface.element.toDataURL("image/png");
+    function savePNG(plot) {
+        var dataString = plot.getCanvas().toDataURL("image/png");
         window.open(dataString.replace("image/png", "image/octet-stream"));
     }
 
     function init(plot) {
         plot.hooks.processOptions.push(function (plot, options) {
             plot.hooks.bindEvents.push(function (plot, eventHolder) {
-                eventHolder.bind("contextmenu", callContextMenu);
+                eventHolder.bind("contextmenu", function(e) {
+                    return callContextMenu(plot, e);
+                });
                 eventHolder.bind("mousedown", closeContextMenu);
             });
 
