@@ -41,12 +41,12 @@
 
     function init(plot) {
         plot.hooks.processOptions.push(function (plot, options) {
-            plot.hooks.bindEvents.push(function (eventHolder) {
+            plot.hooks.bindEvents.push(function (plot, eventHolder) {
                 eventHolder.bind("contextmenu", callContextMenu);
                 eventHolder.bind("mousedown", closeContextMenu);
             });
 
-            plot.hooks.shutdown.push(function (eventHolder) {
+            plot.hooks.shutdown.push(function (plot, eventHolder) {
                 eventHolder.unbind("contextmenu", callContextMenu);
                 eventHolder.unbind("mousedown", closeContextMenu);
             });
