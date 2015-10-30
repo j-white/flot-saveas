@@ -5,9 +5,9 @@
     };
 
     function callContextMenu(plot, e) {
-        var ctxMenu = $('<div id="contextMenu"/>').html('<table  border="0" cellpadding="0" cellspacing="0" style="border: thin solid #808080; cursor: default;" width="100px"><tr><td><div  class="ContextItem">Save image...</div></td></tr></table>');
+        var ctxMenu = $('<div id="contextMenu"/>').html('<table  border="0" cellpadding="0" cellspacing="0" style="border: thin solid #808080; cursor: default;" width="100px"><tr><td><div class="ContextItem" style="cursor:pointer;background:#ffffff; color: black;border-radius:5px;font-size:0.9em; padding: 5px;">Save image...</div></td></tr></table>');
         var posx = e.clientX +window.pageXOffset +'px'; // Left Position of Mouse Pointer
-        var posy = e.clientY + window.pageYOffset + 'px'; // Top Position of Mouse
+        var posy = e.clientY + window.pageYOffset -35+ 'px'; // Top Position of Mouse
         ctxMenu.css({
             'position': 'absolute',
             'left': posx,
@@ -18,11 +18,6 @@
             .click(function(){
                 savePNG(plot);
                 closeContextMenu();
-            })
-            .children('.ContextItem')
-            .css({
-                'background':'#CCC',
-                'color': 'black'
             });
         return false;
     }
